@@ -5,7 +5,7 @@ const $checkType2 = document.getElementById('check-type2') as HTMLInputElement
 const regesterCheckEvent = (elem: HTMLInputElement, mode: string) => [
   elem.oninput = () => {
     const storageNew: Record<string, boolean> = {}
-    storageNew[`mode-${mode}`] = elem.checked
+    storageNew[`mode_${mode}`] = elem.checked
     chrome.storage.local.set(storageNew)
   }
 ]

@@ -13,7 +13,8 @@ const Manifestv3 = z.object({
   content_scripts: z.array(z.object({
     js: z.array(z.string()),
     matches: z.array(z.string())
-  }))
+  })),
+  $schema: z.optional(z.string())
 })
 export const mkext = async () => {
   await fs.emptyDir('./dist')
@@ -54,6 +55,8 @@ export const mkext = async () => {
       await Deno.copyFile(entry.path, path.join('dist', nomalizedPath))
     }
   }
+  delete manifest.$schema
+
   await Deno.writeTextFile('dist/manifest.json', JSON.stringify(manifest, null, 2))
 
   await Deno.writeTextFile('dist/tailwind.css', await makecss())
