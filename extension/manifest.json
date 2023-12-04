@@ -19,6 +19,6 @@
   },
   "permissions": ["storage","tabs"],
   "background": {
-    "service_worker": "./service_worker/main.ts"
+    "scripts": ["./service_worker/main.js"]
   }
 }

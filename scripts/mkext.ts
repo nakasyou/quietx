@@ -13,10 +13,7 @@ const Manifestv3 = z.object({
   content_scripts: z.array(z.object({
     js: z.array(z.string()),
     matches: z.array(z.string())
-  })),
-  background: z.object({
-    service_worker: z.string()
-  })
+  }))
 })
 export const mkext = async () => {
   await fs.emptyDir('./dist')
@@ -27,7 +24,7 @@ export const mkext = async () => {
   await Promise.all([...manifest.content_scripts, {
     js: [
       './popup-script/main.ts',
-      manifest.background.service_worker
+      './service_worker/main.ts'
     ]
   }].map(contentScript => (async () => {
     await Promise.all(contentScript.js.map(js => (async () => {
