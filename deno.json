@@ -1,0 +1,22 @@
+{
+  "tasks": {
+    "dev": "deno run -A --watch scripts/dev.ts"
+  },
+  "imports": {
+    "std/": "https://deno.land/std@0.208.0/",
+    "esbuild": "https://deno.land/x/esbuild@v0.19.7/mod.js"
+  },
+  "fmt": {
+    "useTabs": false,
+    "indentWidth": 2,
+    "singleQuote": true,
+    "semiColons": false
+  },
+  "compilerOptions": {
+    "types": ["npm:@types/chrome"],
+    "lib": [
+      "deno.window",
+      "dom"
+    ]
+  }
+}
