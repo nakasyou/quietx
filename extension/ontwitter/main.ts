@@ -7,8 +7,16 @@
     settings: {
       mode_type1: boolean
       mode_type2: boolean
+      mode_devmode: boolean
     }
   } = await chrome.runtime.sendMessage(0)
+  const devModeTextArea = document.createElement('textarea')
+  if (data.settings.mode_devmode) {
+    devModeTextArea.style.position = 'fixed'
+    devModeTextArea.style.top = '0px'
+    devModeTextArea.style.left = '0px'
+    document.body.append(devModeTextArea)
+  }
   let lastSettings = ''
   const style = document.createElement('style')
   document.head.append(style)
@@ -32,6 +40,13 @@
       }
       reply.onanimationend = () => {
         reply.dataset.endanim = "true"
+      }
+      if (data.settings.mode_devmode) {
+        reply.onclick = (evt) => {
+          evt.preventDefault()
+          reply.style.backgroundColor = '#aaa'
+          devModeTextArea.value += username + '\n'
+        }
       }
     }
 
