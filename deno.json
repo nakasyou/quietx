@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "dev": "deno run -A --watch scripts/dev.ts"
+    "dev": "deno run -A --watch scripts/dev.ts",
+    "format-blocklist": "deno run -A scripts/format-blocklist.ts"
   },
   "imports": {
     "std/": "https://deno.land/std@0.208.0/",
@@ -18,5 +19,6 @@
       "deno.window",
       "dom"
     ]
-  }
+  },
+  "exclude": ["dist/**/*"]
 }

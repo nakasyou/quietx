@@ -30,6 +30,9 @@
       if (data.blockList.type2.includes(username)) {
         reply.dataset.type2 = "true"
       }
+      reply.onanimationend = () => {
+        reply.dataset.endanim = "true"
+      }
     }
 
     const settings = await chrome.storage.local.get(['mode_type1', 'mode_type2']) as {
@@ -38,16 +41,41 @@
     }
     const newSettings = JSON.stringify(settings)
     
+    const badCss = `{
+      /*transition: all 300ms 0s ease;
+      transform: scale(0) !important;*/
+      animation: kieru 0.3s forwards;
+    }`
     if (lastSettings !== newSettings) {
-      style.textContent = (settings.mode_type1 ? `article[data-type1] {
-        display: none;
-      }` : '') + (settings.mode_type2 ? `settings article[data-type2] {
-        display: none;
-      }` : '')
-      console.log(style.textContent)
+      for (const reply of replys) {
+        delete reply.dataset.endanim
+      }
+      style.textContent = `
+      article[data-testid="tweet"][tabindex="0"] {
+        transform: scale(1);
+      }
+      @keyframes kieru {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0);
+        }
+      }
+      ` + (settings.mode_type1 ? `
+        article[data-type1]${badCss}
+        article[data-endanim][data-type1]{
+          display: none;
+        }
+      ` : '') + (settings.mode_type2 ? `
+        article[data-type2]${badCss}
+        article[data-endanim][data-type2]{
+          display: none;
+        }
+      ` : '')
       lastSettings = newSettings
     }
-    setTimeout(step, 100)
+    setTimeout(step, 50)
   }
   step()
 })()

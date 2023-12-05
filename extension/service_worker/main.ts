@@ -1,10 +1,6 @@
-const removeBlockListComment = (text: string) => {
-  return text.replace(/ *#.*$/m, '')
-}
-const parseBlockListComment = (text: string) => {
-  return removeBlockListComment(text).split('\n')
-}
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+import { parseBlockListComment } from '../../utils/blocklist.ts'
+
+chrome.runtime.onMessage.addListener(async (_message, _sender, _sendResponse) => {
   const settings = await chrome.storage.local.get(['mode_type1', 'mode_type2'])
 
   const type1BlockList = await fetch('https://raw.githubusercontent.com/nakasyou/quietx/main/blocklist/type1.txt').then(res => res.text())
