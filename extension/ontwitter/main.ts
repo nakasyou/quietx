@@ -31,7 +31,6 @@
         continue
       }
       const username = usernameMatches[0].replace('·', '').replace('@', '')
-      
       if (data.blockList.type1.includes(username)) {
         reply.dataset.type1 = "true"
       }
@@ -90,7 +89,8 @@
       ` : '')
       lastSettings = newSettings
     }
-    setTimeout(step, 50)
+    console.log('steped')
+    setTimeout(step, 100)
   }
   step()
 })()
