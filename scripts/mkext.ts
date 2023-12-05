@@ -31,7 +31,8 @@ export const mkext = async () => {
     await Promise.all(contentScript.js.map(js => (async () => {
       await esbuild.build({
         entryPoints: [path.join('extension', js)],
-        outfile: path.join('dist', js.replace(/\.ts$/, '.js'))
+        outfile: path.join('dist', js.replace(/\.ts$/, '.js')),
+        bundle: true
       })
     })()))
     // .tsを.jsに
